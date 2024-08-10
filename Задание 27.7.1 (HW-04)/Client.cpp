@@ -1,11 +1,10 @@
 ﻿#pragma comment(lib, "ws2_32.lib")
-#include <winsock2.h>
 #include <iostream>
 #include "Chat.h"
-
+#include <winsock2.h>
 #pragma warning(disable: 4996)
 
-int WSAStartup() {
+int WSAStartup(SOCKET& Connection) {
 	WSAData wsaData;
 	WORD DLLVersion = MAKEWORD(2, 1);
 	if (WSAStartup(DLLVersion, &wsaData) != 0) {
@@ -19,12 +18,13 @@ int WSAStartup() {
 	addr.sin_port = htons(9999);
 	addr.sin_family = AF_INET;
 
-	SOCKET Connection = socket(AF_INET, SOCK_STREAM, NULL);
+	Connection = socket(AF_INET, SOCK_STREAM, NULL);
 	if (connect(Connection, (SOCKADDR*)&addr, sizeof(addr)) != 0) {
 		std::cout << "Error: failed connect to server.\n";
 		return 0;
 	}
 	std::cout << "Connected!\n";
+	return 1;
 }
 
 void userHelp() {
@@ -34,9 +34,12 @@ void userHelp() {
 int main() {
 	setlocale(LC_ALL, "RU");
 
-	if (WSAStartup())
+	SOCKET Connection;
+
+	if (WSAStartup(Connection))
 	{
 		Chat chat;
+		chat.getSocket(Connection);
 		std::cout << "---------- Добро пожаловать в чат ----------\n";
 		bool running = true;
 		while (running)

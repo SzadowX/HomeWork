@@ -1,9 +1,12 @@
+#pragma comment(lib, "ws2_32.lib")
 #include <iostream>
 #include <string>
 #include "Chat.h"
-#include <winsock2.h>
+#pragma warning(disable: 4996)
 
-extern SOCKET Connection;
+void Chat::getSocket(SOCKET& con) {
+    Connection = std::move(con);
+}
 
 void Chat::regUser() {
     MYSQL mysql;
@@ -114,7 +117,7 @@ bool Chat::logIn() {
         switch (choice)
         {
         case 'w':
-            writeMessage(_login);
+            writeMessage();
             break;
         case 'h':
             messageHistory();
@@ -130,7 +133,7 @@ bool Chat::logIn() {
     }
 }
 
-void Chat::writeMessage(const std::string& sender) {
+void Chat::writeMessage() {
     MYSQL mysql;
     mysql_init(&mysql);
 
@@ -155,8 +158,8 @@ void Chat::writeMessage(const std::string& sender) {
             std::string insert_query = "INSERT INTO messages (sender, recipient, text) VALUES ('" + _login + "', '" + recipient + "', '" + text + "')";
             if (mysql_query(&mysql, insert_query.c_str()) == 0) {
                 std::cout << "----- Сообщение отправлено!\n" << std::endl;
-		    std::string msg = sender + "|" + recipient + "|" + text;
-    		send(Connection, msg.c_str(), msg.length(), 0);
+                std::string msg = _login + "|" + recipient + "|" + text;
+                send(Connection, msg.c_str(), msg.length(), 0);
             }
             else {
                 std::cout << "Error: " << mysql_error(&mysql) << std::endl;

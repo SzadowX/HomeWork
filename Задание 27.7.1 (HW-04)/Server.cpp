@@ -1,4 +1,4 @@
-#pragma comment(lib, "ws2_32.lib")
+﻿#pragma comment(lib, "ws2_32.lib")
 #include <winsock2.h>
 #include <iostream>
 #include <string>
@@ -54,6 +54,7 @@ void clientHandler(int index) {
     while (true) {
         ZeroMemory(buffer, sizeof(buffer));
         int bytesReceived = recv(Connections[index], buffer, sizeof(buffer), NULL);
+        //std::cout << "Принято сообщение такой длины: " << bytesReceived << std::endl;
         if (bytesReceived > 0) {
             std::string msg(buffer);
             size_t delimPos = msg.find('|');
