@@ -1,0 +1,5 @@
+C:/Users/1/Documents/Server/build/Desktop_Qt_6_7_3_MSVC2019_64bit-Debug/CMakeFiles/Server.dir
+C:/Users/1/Documents/Server/build/Desktop_Qt_6_7_3_MSVC2019_64bit-Debug/CMakeFiles/edit_cache.dir
+C:/Users/1/Documents/Server/build/Desktop_Qt_6_7_3_MSVC2019_64bit-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/1/Documents/Server/build/Desktop_Qt_6_7_3_MSVC2019_64bit-Debug/CMakeFiles/Server_autogen_timestamp_deps.dir
+C:/Users/1/Documents/Server/build/Desktop_Qt_6_7_3_MSVC2019_64bit-Debug/CMakeFiles/Server_autogen.dir
